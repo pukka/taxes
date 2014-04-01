@@ -1,0 +1,17 @@
+@(title: String, message: String, MyForm: Form[Application.FormData])
+
+@main(title) {
+    <h1>@title</h1>
+    <h2>@message</h2>
+
+    <p>税抜き額から、8%の消費税を計算する場合はこちら</p>
+    @helper.form(action = routes.Application.NotIncludingTax) {
+     @helper.inputText(MyForm("money"), '_label -> "税抜き額")
+     <input type="submit" value = "計算">
+    }
+    <p>5%の消費税が含まれた状態から、8%の消費税を計算する場合はこちら</p>
+    @helper.form(action = routes.Application.IncludingTax) {
+     @helper.inputText(MyForm("money"), '_label -> "5%税込み額")
+     <input type="submit" value = "計算">
+    }
+}
