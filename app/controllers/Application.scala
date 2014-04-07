@@ -6,6 +6,11 @@ import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
 
+import scala.collection._
+import scala.collection.mutable._
+
+import play.api.data.validation._
+
 object Application extends Controller {
 
   case class FormData(money:Int)
@@ -24,26 +29,24 @@ object Application extends Controller {
 
   def NotIncludingTax = Action { implicit request =>
       val data: FormData = form1.bindFromRequest.get
-      val cost = data.money
-      val eight = data.money * 1.08
-      val five = data.money * 1.05
+      val cost: BigDecimal = data.money
+      val eight: BigDecimal = data.money * 1.08
+      val five: BigDecimal = data.money * 1.05
 
       val title = "消費税計算プログラム"
-      val msg = "原価：" + cost + "円、8%の消費税：" + eight + "円、5%の消費税：" + five + "円"
+      val msg = "原価：" + cost.toInt + "円、8%の消費税：" + eight.toInt + "円、5%の消費税：" + five.toInt + "円"
 
     Ok(views.html.index(title, msg, form1))
   }
 
   def IncludingTax = Action { implicit request =>
     val data: FormData = form1.bindFromRequest.get
-    val cost = data.money / 1.05
-    val five = data.money
-    val eight = cost * 1.08
+    val cost: BigDecimal = data.money / 1.05
+    val five: BigDecimal = data.money
+    val eight: BigDecimal = cost * 1.08
     val title = "消費税計算プログラム"
-    val msg = "原価：" + cost + "円、8%の消費税：" + eight + "円、5%の消費税：" + five + "円"
+    val msg = "原価：" + cost.toInt + "円、8%の消費税：" + eight.toInt + "円、5%の消費税：" + five.toInt + "円"
 
     Ok(views.html.index(title, msg, form1))
-
   }
-
 }

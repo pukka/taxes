@@ -1,0 +1,4 @@
+# ---Constraints
+constraint.num=数字を入力して下さい。
+# ---Errors
+error.num=入力エラー。再度お試し下さい。
